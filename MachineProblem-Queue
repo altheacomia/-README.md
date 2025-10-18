@@ -1,26 +1,58 @@
 import java.util.LinkedList;
-import java.util.Queue; 
+import java.util.Queue;
+import java.util.Scanner;
 
-public class QueuePractice {
+public class SupportSystem {
+    static class Ticket {
+        private static int nextTicketID = 1;
+        int ticketID;
+        String userName;
+        String issueDescription;
+
+        public Ticket(String userName, String issueDescription) {
+            this.ticketID = nextTicketID++;
+            this.userName = userName;
+            this.issueDescription = issueDescription;
+        }
+
+        @Override
+        public String toString() {
+            return "Ticket #" + ticketID + " [User: " + userName + ", Issue: " + issueDescription + "]";
+        }
+    }
+
     public static void main(String[] args) {
-        Queue<String> queue = new LinkedList<>();
+        Scanner scanner = new Scanner(System.in);
+        Queue<Ticket> ticketQueue = new LinkedList<>();
 
-        queue.add("Alice");
-        queue.add("Bob");
-        queue.add("Charlie");
-        queue.add("David");
+        System.out.println("Welcome to the IT Support Ticketing System!\n");
+        System.out.println("--- Enter Ticket Details ---");
 
-        System.out.println("The queue is: " + queue);
-        System.out.println("The person at the front is: " + queue.peek());
+        for (int i = 1; i <= 3; i++) {
+            System.out.println("Please enter details for ticket " + i + " of 3.");
+            System.out.print("Enter your name: ");
+            String name = scanner.nextLine();
+            System.out.print("Describe your issue: ");
+            String issue = scanner.nextLine();
+            Ticket newTicket = new Ticket(name, issue);
+            ticketQueue.add(newTicket);
+            System.out.println();
+        }
 
-        queue.remove();
-        System.out.println("After removing one person, the queue is: " + queue);
+        System.out.println("-------------------------------------------");
+        System.out.println("All tickets have been logged.");
+        System.out.println("There are " + ticketQueue.size() + " tickets waiting in the queue.");
+        System.out.println("-------------------------------------------\n");
 
-        queue.remove();
-        System.out.println("After removing another person, the queue is: " + queue);
+        System.out.println("--- Processing Tickets ---");
+        for (int i = 0; i < 2 && !ticketQueue.isEmpty(); i++) {
+            Ticket current = ticketQueue.poll();
+            System.out.println("Resolving: " + current);
+        }
 
-        System.out.println("The current size of the queue is: " + queue.size());
-        System.out.println("Is the queue empty? " + queue.isEmpty());
+        System.out.println("-------------------------------------------\n");
+        System.out.println("All done for now.");
+        System.out.println("Remaining tickets in queue: " + ticketQueue);
+        scanner.close();
     }
 }
-

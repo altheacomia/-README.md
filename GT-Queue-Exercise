@@ -1,0 +1,25 @@
+import java.util.LinkedList;
+import java.util.Queue; 
+
+public class QueuePractice {
+    public static void main(String[] args) {
+        Queue<String> queue = new LinkedList<>();
+
+        queue.add("Alice");
+        queue.add("Bob");
+        queue.add("Charlie");
+        queue.add("David");
+
+        System.out.println("The queue is: " + queue);
+        System.out.println("The person at the front is: " + queue.peek());
+
+        queue.remove();
+        System.out.println("After removing one person, the queue is: " + queue);
+
+        queue.remove();
+        System.out.println("After removing another person, the queue is: " + queue);
+
+        System.out.println("The current size of the queue is: " + queue.size());
+        System.out.println("Is the queue empty? " + queue.isEmpty());
+    }
+}
